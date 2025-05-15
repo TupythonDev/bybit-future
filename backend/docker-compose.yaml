@@ -1,0 +1,9 @@
+services:
+    bybitgenius-pg:
+        image: bitnami/postgresql
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRESQL_USERNAME=tupython
+            - POSTGRESQL_PASSWORD=P0rr4vivian-
+            - POSTGRESQL_DATABASE=bybitgenius

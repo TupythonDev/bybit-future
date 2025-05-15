@@ -16,7 +16,7 @@ export const Modal: FC<ModalProps> = ({ className = "", isOpen, onClose, childre
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
             <motion.div
-                className={clsx("bg-white rounded-xl shadow-lg p-6 relative max-w-lg w-full", className)} onClick={(e) => e.stopPropagation()}
+                className={clsx("bg-white dark:bg-gray-900 rounded-3xl shadow-lg p-6 relative max-w-lg w-full", className)} onClick={(e) => e.stopPropagation()}
                 layout
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

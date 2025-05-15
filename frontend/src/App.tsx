@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
-import { AuthModal } from "./components/Modals/AuthModal";
-
 
 export function App() {
-    const [openAuthModal, setAuthModal] = useState(false)
-
     return (
-        <div className="bg-gray-800 min-h-screen">
-            <Header onAuthClick={() => setAuthModal(true)} />
-            <AuthModal openAuthModal={openAuthModal} setAuthModal={setAuthModal} />
-        </div >
+        <div className="bg-gradient-to-b from-gray-800 to-gray-900 min-h-screen">
+            <BrowserRouter>
+                <Header />
+                <main >
+                    <Routes>
+                        <Route path="/" element={""} />
+                        <Route path="/order-placer" element={""} />
+                    </Routes>
+                </main >
+            </BrowserRouter>
+        </div>
     )
 }

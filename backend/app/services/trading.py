@@ -1,4 +1,19 @@
-from app.config import HTTP
+from pybit.unified_trading import HTTP
+
+def get_kline(session:HTTP, symbol:str, category:str, start_time:int, end_time:int, interval:str, limit:int):
+    try:
+        return (
+            session.get_kline(
+                symbol=symbol,
+                category=category,
+                interval=interval,
+                start=start_time,
+                end=end_time,
+                limit=limit
+            )
+        )
+    except Exception as e:
+        raise RuntimeError(f"Erro ao coletar velas: {e}") from e
 
 def get_usdt_balance(session:HTTP) -> float:
     try:

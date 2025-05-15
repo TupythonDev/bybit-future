@@ -90,7 +90,7 @@ export const Register: FC<FormProps> = ({ className }) => {
     const formFields = [
         { name: "name", label: "Nome" },
         { name: "surname", label: "Sobrenome" },
-        { name: "email", label: "Email" },
+        { name: "email", label: "Email", type: "email" },
         { name: "password", label: "Senha", type: "password" },
         { name: "phone", label: "Telefone", type: "tel" },
         { name: "cpf", label: "CPF" },
@@ -100,7 +100,7 @@ export const Register: FC<FormProps> = ({ className }) => {
     return (
         <form className={className} onSubmit={handleSubmit}>
             {formFields.map((field) => (
-                <div className="flex flex-col" key={field.name}>
+                <div className="flex flex-col gap-4 rounded border-2 border-green-400">
                     <input
                         type={field.type || "text"}
                         id={field.name}
@@ -108,12 +108,12 @@ export const Register: FC<FormProps> = ({ className }) => {
                         value={formData[field.name as keyof FormData]}
                         onChange={handleChange}
                         placeholder={field.label}
-                        className="p-2 rounded text-center"
+                        className="p-2 rounded text-center text-xl bg-white/10"
                         required
                     />
                 </div>
             ))}
-            <button className="cursor-pointer p-2" type="submit">Registrar</button>
+            <button className="cursor-pointer p-2 text-xl text-white/80 font-bold rounded bg-blue-700 hover:bg-blue-700/50" type="submit">Registrar</button>
         </form>
     )
 }
