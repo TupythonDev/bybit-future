@@ -36,7 +36,7 @@ def get_balance_view(request):
         "status": "completed",
         "results": result,
         "total_users": len(users),
-        "successful_orders": len([r for r in result if "error" in r])
+        "successful_orders": len([r for r in result if not "error" in r])
     })
 
 @csrf_exempt
