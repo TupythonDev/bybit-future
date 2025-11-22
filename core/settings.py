@@ -11,21 +11,30 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Initialize environment variables
+env = Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+# ENVIRMENT VARIABLES
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w#w5^d7o_&xd=$jr1ep7sm2@9(-rq2dxl3g*#s9m3+gq(oiz)j'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+# Allowed hosts configuration
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=["localhost"])
 
 
 # Application definition
@@ -56,7 +65,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,16 +84,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
 }
 
 JAZZMIN_SETTINGS = {
     "site_title": "Bybit Genius",
-    "site_header": "Bybit Genius Admin Panel",
+    "site_header": "Painel Bybit Genius",
     "site_brand": "Bybit Genius",
+    "site_logo": "/images/icon-bybitgenius.png",
+    "index_title": "Dashboard Principal",
+    "welcome_sign": "Bem-vindo ao Bybit Genius!",
+    "order_with_respect_to": [
+        "trading",
+        "trading.TradingUser",
+        "auth",
+        "auth.User"
+    ],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "trading.TradingUser": "fas fa-chart-line",
+        "trading.Leverage": "fas fa-arrow-up-9-1"
+    },
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -154,6 +176,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static jazzmin %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+{% block bodyclass %}{{ block.super }} app{% endblock %}
+
+{% block content_title %} {% trans 'Ordens' %} {% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+    <li class="breadcrumb-item">{% trans 'App' %}</li>
+</ol>
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div id="root"></div>
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'assets/Trading.css' %}">
+<script type="module" defer src="{% static 'assets/Trading.js' %}"></script>
+{% endblock %}
